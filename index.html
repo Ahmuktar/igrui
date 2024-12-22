@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Setup</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .step-line {
+        width: 2px;
+        height: 40px;
+        background-color: #e5e7eb;
+        margin-left: 12px;
+      }
+
+      .step-active {
+        background-color: #02a75a;
+      }
+
+      .step-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #e5e7eb;
+      }
+
+      .step-circle.active {
+        background-color: #fff;
+        border: 2px solid #02a75a;
+      }
+
+      .step-circle.completed {
+        background-color: #02a75a;
+      }
+
+      .profile-web-form-wrapper .bg-default-color {
+        background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        --tw-gradient-from: #ebedf1 var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(235 237 241 / 0) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+        --tw-gradient-from-position: 55%;
+        --tw-gradient-to: #f5f5f5 var(--tw-gradient-to-position);
+        --tw-gradient-to-position: 45%;
+      }
+    </style>
+    <style>
+      /* Previous styles remain the same */
+      .form-tab {
+        display: none;
+      }
+      .form-tab.active {
+        display: block;
+      }
+      .preview-data {
+        background-color: #f8fafc;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .preview-item {
+        display: flex;
+        justify-content: between;
+        margin-bottom: 0.5rem;
+      }
+      .preview-label {
+        font-weight: 500;
+        color: #64748b;
+        width: 120px;
+      }
+      .preview-value {
+        color: #1e293b;
+      }
+
+      .payment-container input[type="radio"] {
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+        margin: 0 auto;
+        visibility: hidden;
+      }
+      /* green color to the selected radio */
+      /* Ensure the form-check gets a border when its input is checked */
+      .payment-container label input[type="radio"]:checked {
+        border: 2px solid #02a75a;
+        border-radius: 8px;
+      }
+
+      /* Ensure all form-check elements have default styles */
+      .payment-container label {
+        border: 2px solid transparent; /* Default border */
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px; /* Optional: make the border rounded */
+        transition: border 0.2s ease-in-out;
+      }
+
+      /* Add hover effect for better interactivity */
+      .payment-container label:hover {
+        border: 2px solid #02a75a;
+      }
+      .payment-container label:has(input[type="radio"]:checked) {
+        border: 3px solid #02a75a;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <div class="profile-web-form-wrapper">
+      <div class="bg-properties bg-default-color">
+        <div class="mx-auto min-h-screen flex flex-col">
+          <!-- Header -->
+          <div class="flex container px-4 justify-between items-center py-4">
+            <div class="flex items-center">
+              <img src="./img/jigawa.png" width="70" />
+              <span class="font-semibold text-xl">Payjigawa</span>
+            </div>
+          </div>
+
+          <!-- Form Tab -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8 welcomeTab">
+            <div class="w-full sm:w-1.4/3 hidden sm:block">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Pay your tax</h1>
+              <p class="text-gray-600">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+            </div>
+
+            <div class="bg-white w-full p-3 lg:p-10 sm:max-w-xl lg:rounded-2xl">
+              <h2 class="text-xl font-semibold mb-2">Customer validation</h2>
+              <p class="text-gray-600 mb-4">
+                Select your preferred identification method
+              </p>
+
+              <form>
+                <!-- Radio Options -->
+                <div class="mb-4 flex gap-4 flex-wrap items-center">
+                  <div class="form-check mb-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="identificationMethod"
+                      id="tin"
+                      checked
+                    />
+                    <label class="form-check-label" for="tin">TIN</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="identificationMethod"
+                      id="taxRegId"
+                    />
+                    <label class="form-check-label" for="taxRegId"
+                      >Tax RegID</label
+                    >
+                  </div>
+                  <div class="form-check mb-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="identificationMethod"
+                      id="email"
+                    />
+                    <label class="form-check-label" for="email">Email</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="identificationMethod"
+                      id="phone"
+                    />
+                    <label class="form-check-label" for="phone">Phone</label>
+                  </div>
+                </div>
+
+                <!-- Floating Input -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="identificationInput"
+                    placeholder=" "
+                  />
+                  <label for="identificationInput">Enter your details</label>
+                </div>
+                <!-- description related to the above information -->
+                <p class="text-gray-500 mb-4 text-sm">
+                  This will help us verify your identity and access your
+                  account.
+                </p>
+
+                <!-- Submit Button -->
+                <button
+                  id="continueToTab2"
+                  class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+                >
+                  Continue
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- fetched personal details -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3 hidden sm:block">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Pay your tax</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Customer validation</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div class="step-circle active"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Personal details</span
+                  >
+                </div>
+                <div class="step-line"></div>
+
+                <div class="flex items-start mb-2">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Billing Info</span
+                  >
+                </div>
+                <div class="step-line"></div>
+
+                <div class="flex items-start">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Invoice</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white w-full p-4 lg:p-10 sm:max-w-xl rounded-2xl">
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="cursor-pointer">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M21.5607 26.0607C20.9749 26.6464 20.0251 26.6464 19.4393 26.0607L10.4393 17.0607C9.85355 16.4749 9.85355 15.5251 10.4393 14.9393L19.4393 5.93934C20.0251 5.35355 20.9749 5.35355 21.5607 5.93934C22.1464 6.52513 22.1464 7.47487 21.5607 8.06066L13.6213 16L21.5607 23.9393C22.1464 24.5251 22.1464 25.4749 21.5607 26.0607Z"
+                        fill="#02a75a"
+                      ></path>
+                    </svg>
+                  </div>
+                  <!---->
+                </div>
+                <div class="py-[22px]">
+                  <svg
+                    width="100%"
+                    height="3"
+                    viewBox="0 0 100% 3"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect width="100%" height="3" fill="#DBE7FD"></rect>
+                    <rect width="37" height="3" fill="#02a75a"></rect>
+                  </svg>
+                </div>
+                <!---->
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Personal details</h2>
+              <p class="text-gray-600 mb-4">
+                Select your preferred identification method
+              </p>
+
+              <form class="space-y-6">
+                <div class="preview-data" id="userPreview">
+                  <!-- Preview data will be inserted here -->
+                </div>
+
+                <div
+                  class="bg-green-50 p-4 rounded-lg flex justify-between items-center"
+                >
+                  <span class="text-gray-700"
+                    >Didn't get the details right?</span
+                  >
+                  <button type="button" class="text-[#02a75a] font-semibold">
+                    Fill Manually
+                  </button>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+                >
+                  Confirm & Continue
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- manually fill personal details -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Pay your tax</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Customer validation</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div class="step-circle active"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Personal details</span
+                  >
+                </div>
+                <div class="step-line"></div>
+
+                <div class="flex items-start mb-2">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Billing Info</span
+                  >
+                </div>
+                <div class="step-line"></div>
+
+                <div class="flex items-start">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Invoice</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white w-full p-4 lg:p-10 sm:max-w-xl rounded-2xl">
+              <h2 class="text-xl font-semibold mb-2">Personal details</h2>
+              <p class="text-gray-600 mb-4">Fill out your personal details</p>
+
+              <form class="space-y-6">
+                <!-- Category -->
+                <div class="form-floating mb-2">
+                  <select class="form-select" id="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="individual">Individual</option>
+                    <option value="corporate">Corporate</option>
+                  </select>
+                  <label for="category">Category</label>
+                </div>
+
+                <!-- First Name -->
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    placeholder=" "
+                    required
+                  />
+                  <label for="firstName">First Name</label>
+                </div>
+
+                <!-- Surname -->
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="surname"
+                    placeholder=" "
+                    required
+                  />
+                  <label for="surname">Surname</label>
+                </div>
+
+                <!-- Email -->
+                <div class="form-floating mb-2">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder=" "
+                    required
+                  />
+                  <label for="email">Email</label>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-floating mb-2">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    placeholder=" "
+                    required
+                  />
+                  <label for="phone">Phone</label>
+                </div>
+
+                <!-- TIN -->
+                <div class="form-floating mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="tin"
+                    placeholder=" "
+                  />
+                  <label for="tin">TIN (Optional)</label>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                  <!-- State -->
+                  <div class="form-floating">
+                    <select class="form-select" id="stateSelect" required>
+                      <option value="" disabled selected>Select State</option>
+                      <!-- States will be populated via JavaScript -->
+                    </select>
+                    <label for="stateSelect">State</label>
+                  </div>
+
+                  <!-- LGA -->
+                  <div class="form-floating">
+                    <select class="form-select" id="lgaSelect" required>
+                      <option value="" disabled selected>Select LGA</option>
+                      <!-- LGAs will be populated based on selected state -->
+                    </select>
+                    <label for="lgaSelect">LGA</label>
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="form-floating mb-2">
+                  <textarea
+                    class="form-control"
+                    id="address"
+                    placeholder=" "
+                    required
+                    style="height: 100px"
+                  ></textarea>
+                  <label for="address">Address</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+                >
+                  Confirm & Continue
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- billing -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Pay your tax</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Customer validation</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Personal details</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div class="step-circle active"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Billing Info</span
+                  >
+                </div>
+                <div class="step-line"></div>
+
+                <div class="flex items-start">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Invoice</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white w-full p-4 lg:p-10 sm:max-w-xl rounded-2xl">
+              <h2 class="text-xl font-semibold mb-2">Billing information</h2>
+              <p class="text-gray-600 mb-4">Fill out your billing item</p>
+
+              <form class="space-y-6">
+                <!-- Category -->
+                <div class="form-floating mb-4">
+                  <select class="form-select" id="assessment" required>
+                    <option value="" disabled selected>Select tax</option>
+                    <option value="individual">Individual</option>
+                    <option value="corporate">Corporate</option>
+                  </select>
+                  <label for="assessment">Assessment Item</label>
+                </div>
+
+                <!-- First Name -->
+                <div class="form-floating mb-4">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="amount"
+                    placeholder=" "
+                    required
+                  />
+                  <label for="amount">Amount To Be Paid*</label>
+                </div>
+
+                <!-- Address -->
+                <div class="form-floating mb-4">
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    placeholder=" "
+                    required
+                    style="height: 100px"
+                  ></textarea>
+                  <label for="description">Description</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+                >
+                  Generate Invoice
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- invoice success -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Pay your tax</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Customer validation</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Personal details</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Billing Info</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Invoice</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white w-full flex justify-center space-y-6 flex-col items-center p-4 lg:p-10 sm:max-w-xl rounded-2xl"
+            >
+              <!-- large check svg icon -->
+              <svg
+                width="400"
+                height="100"
+                viewBox="0 0 30 30"
+                class="text-9xl"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="13.4301"
+                  cy="13.4301"
+                  r="13.4301"
+                  fill="#BCE8C0"
+                ></circle>
+                <circle
+                  cx="13.4301"
+                  cy="13.4301"
+                  r="10.6366"
+                  fill="#1EB12D"
+                ></circle>
+                <circle
+                  cx="13.4299"
+                  cy="13.4301"
+                  r="8.27291"
+                  fill="#18902C"
+                ></circle>
+                <path
+                  d="M9.40263 13.4033C9.69091 13.1236 10.158 13.1231 10.4466 13.4023L11.6708 14.5862C11.7651 14.6775 11.9179 14.6774 12.0122 14.5859L16.1946 10.5251C16.4847 10.2435 16.9552 10.2443 17.2442 10.5269C17.5316 10.8081 17.5308 11.262 17.2422 11.5422L12.6406 16.0098C12.1993 16.4382 11.4839 16.4382 11.0425 16.0098L9.40263 14.4177C9.11416 14.1376 9.11416 13.6834 9.40263 13.4033Z"
+                  fill="white"
+                ></path>
+              </svg>
+              <h2 class="text-xl font-semibold text-gray-800">
+                Invoice Generated Successfully!
+              </h2>
+              <p class="text-sm text-center">
+                Your invoice has been generated successfully. You can now
+                preview it or proceed to make payment.
+              </p>
+
+              <button
+                class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+              >
+                Preview
+              </button>
+            </div>
+          </div>
+
+          <!-- payment method -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Make Payment</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div class="step-circle active"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Payment Method</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+                <div class="flex items-start mb-2">
+                  <div class="step-circle"></div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Receipt</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white w-full p-4 lg:p-10 sm:max-w-xl rounded-2xl">
+              <h2 class="text-xl font-semibold mb-2">Payment Method</h2>
+              <p class="text-gray-600 mb-2">
+                Select your preferred payment method
+              </p>
+
+              <div
+                class="bg-green-50 p-4 rounded-lg mb-4 flex justify-between items-center"
+              >
+                <span class="text-gray-700"
+                  >You are paying:
+                  <strong class="text-green-600">₦ 380,000.00</strong></span
+                >
+              </div>
+
+              <form class="space-y-6">
+                <div
+                  class="payment-container grid grid-cols-2 lg:grid-cols-3 gap-4"
+                ></div>
+
+                <!-- Submit Button -->
+                <button
+                  class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+                >
+                  Confirm & Continue
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- receipt success -->
+          <div class="sm:flex lg:mx-auto max-w-6xl lg:gap-10 my-8">
+            <div class="w-full sm:w-1.4/3">
+              <h1 class="text-xl lg:text-5xl font-bold mb-4">Make Payment</h1>
+              <p class="text-gray-600 mb-8">
+                Collect payments, access loans and manage operations with a
+                business banking solution that meets all your needs.
+              </p>
+              <div class="flex lg:flex-col">
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Payment Method</span
+                  >
+                </div>
+                <div class="step-line step-active"></div>
+
+                <div class="flex items-start mb-2">
+                  <div
+                    class="step-circle completed flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="ml-4 font-semibold hidden sm:block"
+                    >Generate Receipt</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white w-full flex justify-center space-y-6 flex-col items-center p-4 lg:p-10 sm:max-w-xl rounded-2xl"
+            >
+              <!-- large check svg icon -->
+              <svg
+                width="400"
+                height="100"
+                viewBox="0 0 30 30"
+                class="text-9xl"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="13.4301"
+                  cy="13.4301"
+                  r="13.4301"
+                  fill="#BCE8C0"
+                ></circle>
+                <circle
+                  cx="13.4301"
+                  cy="13.4301"
+                  r="10.6366"
+                  fill="#1EB12D"
+                ></circle>
+                <circle
+                  cx="13.4299"
+                  cy="13.4301"
+                  r="8.27291"
+                  fill="#18902C"
+                ></circle>
+                <path
+                  d="M9.40263 13.4033C9.69091 13.1236 10.158 13.1231 10.4466 13.4023L11.6708 14.5862C11.7651 14.6775 11.9179 14.6774 12.0122 14.5859L16.1946 10.5251C16.4847 10.2435 16.9552 10.2443 17.2442 10.5269C17.5316 10.8081 17.5308 11.262 17.2422 11.5422L12.6406 16.0098C12.1993 16.4382 11.4839 16.4382 11.0425 16.0098L9.40263 14.4177C9.11416 14.1376 9.11416 13.6834 9.40263 13.4033Z"
+                  fill="white"
+                ></path>
+              </svg>
+              <h2 class="text-xl font-semibold text-gray-800">
+                Receipt Generated Successfully!
+              </h2>
+              <p class="text-sm text-center">
+                Your payment receipt has been generated successfully. You can
+                now print or download it.
+              </p>
+
+              <button
+                class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 transition"
+              >
+                Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const mockUserData = {
+        category: "individual",
+        firstName: "John",
+        surname: "Doe",
+        email: "test@email.com",
+        phone: "1234567890",
+        tin: "12345",
+        state: "Lagos",
+        lga: "Ikeja",
+        address: "123 Main Street",
+      };
+
+      const previewHTML = Object.entries(mockUserData)
+        .map(
+          ([key, value]) => `
+              <div class="preview-item flex justify-between items-center">
+                  <span class="preview-label text-gray-500">${
+                    key.charAt(0).toUpperCase() + key.slice(1)
+                  }:</span>
+                  <span class="preview-value font-medium">${value}</span>
+              </div>
+          `
+        )
+        .join("");
+
+      document.getElementById("userPreview").innerHTML = previewHTML;
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tab Management
+        function showTab(tabId) {
+          // Hide all tabs
+          document.querySelectorAll(".form-tab").forEach((tab) => {
+            tab.classList.remove("active");
+          });
+
+          // Show selected tab
+          document.getElementById(tabId).classList.add("active");
+
+          // Update progress indicators
+          updateProgressIndicators(tabId);
+        }
+
+        function updateProgressIndicators(currentTab) {
+          const stepCircles = document.querySelectorAll(".step-circle");
+          stepCircles.forEach((circle) => {
+            circle.classList.remove("active", "completed");
+          });
+
+          const tabNumber = currentTab.replace("tab", "");
+          for (let i = 1; i <= tabNumber; i++) {
+            const circle = document.querySelector(
+              `.step-circle[data-step="${i}"]`
+            );
+            if (i < tabNumber) {
+              circle.classList.add("completed");
+            } else {
+              circle.classList.add("active");
+            }
+          }
+        }
+
+        // Tab Navigation
+        document
+          .getElementById("continueToTab2")
+          .addEventListener("click", function () {
+            // Validate first tab
+            const identificationInput = document.getElementById(
+              "identificationInput"
+            );
+            if (identificationInput.value.trim() !== "") {
+              showTab("tab2");
+            } else {
+              alert("Please enter your identification details.");
+            }
+          });
+
+        document
+          .getElementById("backToTab1")
+          .addEventListener("click", function () {
+            showTab("tab1");
+          });
+
+        document
+          .getElementById("continueToTab3")
+          .addEventListener("click", function () {
+            // Validate second tab
+            const personalDetailsForm = document.getElementById(
+              "personalDetailsForm"
+            );
+            if (personalDetailsForm.checkValidity()) {
+              // Populate confirmation details
+              const firstName = document.getElementById("firstName").value;
+              const lastName = document.getElementById("lastName").value;
+              const email = document.getElementById("email").value;
+              const phoneNumber = document.getElementById("phoneNumber").value;
+
+              document.getElementById("confirmationDetails").innerHTML = `
+                      <p><strong>First Name:</strong> ${firstName}</p>
+                      <p><strong>Last Name:</strong> ${lastName}</p>
+                      <p><strong>Email:</strong> ${email}</p>
+                      <p><strong>Phone Number:</strong> ${phoneNumber}</p>
+                  `;
+              showTab("tab3");
+            } else {
+              alert("Please fill out all fields.");
+            }
+          });
+
+        document
+          .getElementById("backToTab2")
+          .addEventListener("click", function () {
+            showTab("tab2");
+          });
+
+        document
+          .getElementById("submitForm")
+          .addEventListener("click", function () {
+            // Here you can handle the form submission
+            alert("Form submitted successfully!");
+          });
+      });
+
+      const paymentMethods = [
+        { id: "paystack", name: "Paystack", image: "./img/paystack.png" },
+        {
+          id: "interswitch",
+          name: "Interswitch",
+          image: "./img/interswitch.png",
+        },
+        { id: "credo", name: "Credo", image: "./img/credo.png" },
+        {
+          id: "flutterwave",
+          name: "Flutterwave",
+          image: "./img/flutterwave.png",
+        },
+        { id: "remita", name: "Remita", image: "./img/remita.png" },
+        { id: "bank", name: "Bank branch", image: "./img/bankbranch.png" },
+      ];
+
+      const paymentContainer = document.querySelector(".payment-container");
+
+      paymentMethods.forEach((method) => {
+        const paymentCard = `
+      
+      <label class="form-check-label bg-gray-100 text-center flex flex-col rounded-xl p-2" for="${method.id}">
+        <input
+        class="form-check-input"
+        type="radio"
+        name="paymentMethod"
+        id="${method.id}"
+      />
+        <div class="h-20 w-auto">
+          <img src="${method.image}" alt="${method.name}" class="w-full h-full object-contain" />
+        </div>
+      
+        <p class="mt-2 font-medium">${method.name}</p>
+      </label>
+  `;
+        paymentContainer.insertAdjacentHTML("beforeend", paymentCard);
+      });
+    </script>
+  </body>
+</html>
